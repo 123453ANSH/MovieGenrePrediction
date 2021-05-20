@@ -1,3 +1,14 @@
 **/archive
 **/.ipynb_checkpoints
 **/images_movies_genre
+**/GenreLabels.csv
+**/Genres
+**/ImageData
+**/MoviesWithOverViews.csv 
+**/Predictions.csv
+**/Reviews.csv
+**/ReviewsDataset.csv 
+**/ReviewsToRating
+**/vocab.txt
+**/rnn.h5
+**/model.h5
