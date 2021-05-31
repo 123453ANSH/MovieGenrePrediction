@@ -1,5 +1,8 @@
 import streamlit as st
+from streamlit_drawable_canvas import st_canvas
+from PIL import Image
 import numpy as np
+import pandas as pd
 import pickle
 
 #def load_model():
@@ -8,10 +11,9 @@ import pickle
 
 def show_predict_page():
     st.title("Movie Rating Prediction")
-    st.write("Enter the plot overview and draw the poster! ")
+    st.write("Enter the plot overview! ")
+    #To get Overview
     overview=st.text_area(label='Movie Overview', max_chars=400)
-<<<<<<< HEAD
-=======
     st.write("Draw the poster!")
     #To get drawing
     #canvas_result = st_canvas(stroke_width = 25,stroke_color = "#fff",background_color = "#000",height = 400,width = 600,drawing_mode = "freedraw",key = "canvas",)
@@ -24,7 +26,7 @@ def show_predict_page():
     "Drawing tool:", ("freedraw", "line", "rect", "circle", "transform")
     )
     realtime_update = st.sidebar.checkbox("Update in realtime", True)
-    #Displaying canvas
+    #Displaying drawing canvas
     canvas_result = st_canvas(
     fill_color="rgba(255, 165, 0, 0.3)",  # Fixed fill color with some opacity
     stroke_width=stroke_width,
@@ -38,12 +40,31 @@ def show_predict_page():
     key="canvas",
 )
     # Using the data
-    if canvas_result.image_data is not None:
-        st.image(canvas_result.image_data)
-    if canvas_result.json_data is not None:
-        st.dataframe(pd.json_normalize(canvas_result.json_data["objects"]))
+    #if canvas_result.image_data is not None:
+        #st.image(canvas_result.image_data)
+    #if canvas_result.json_data is not None:
+        #st.dataframe(pd.json_normalize(canvas_result.json_data["objects"]))
 
-    ok = st.button("Get the Rating!")
-    #if ok:
-    #display rating
->>>>>>> 4ed517f (added canvas)
+    getGenre = st.button("Get the Genre!")
+    getRating = st.button("Get the Rating!")
+
+    if canvas_result.image_data is not None and getGenre:
+        #display genre
+        st.write(type(canvas_result.image_data))
+        st.write(canvas_result.image_data)
+        genre=getGenrePrediction(canvas_result.image_data, overview)
+        st.write("Prediction: "+genre)
+
+    if canvas_result.image_data is not None and getRating:
+        rating= getRatingPrediction(canvas_result.image_data, overview)
+        st.write("Rating: "+str(rating))
+    #display genre
+def getGenrePrediction(image, text):
+    #get the genre prediction from your model and return it
+    return 'Comedy'
+
+def getRatingPrediction(image, text):
+    #get the rating prediction from the model and return it
+    return 7
+#def processImageData(image):
+    #Dividing the numbers by 255
