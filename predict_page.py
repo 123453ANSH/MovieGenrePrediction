@@ -8,6 +8,23 @@ import pickle
 #def load_model():
 
 #data=load_model()
+color_names = {
+    '#000000': 'black',
+    '#ffffff': 'white',
+    '#808080': 'dark gray',
+    '#b0b0b0': 'light gray',
+    '#ff0000': 'red',
+    '#800000': 'dark red',
+    '#00ff00': 'green',
+    '#008000': 'darkgreen',
+    '#0000ff': 'blue',
+    '#000080': 'dark blue',
+    '#ffff00': 'yellow',
+    '#808000': 'olive',
+    '#00ffff': 'cyan',
+    '#ff00ff': 'magenta',
+    '#800080': 'purple'
+    }
 
 def show_predict_page():
     st.title("Movie Rating Prediction")
@@ -20,7 +37,7 @@ def show_predict_page():
     #Sidebar components
     stroke_width = st.sidebar.slider("Stroke width: ", 1, 25, 3)
     stroke_color = st.sidebar.color_picker("Stroke color hex: ")
-    bg_color = st.sidebar.color_picker("Background color hex: ", "#eee")
+    bg_color = st.sidebar.color_picker("Background color hex: ", "#eee", key="sidebar")
     bg_image = st.sidebar.file_uploader("Background image:", type=["png", "jpg"])
     drawing_mode = st.sidebar.selectbox(
     "Drawing tool:", ("freedraw", "line", "rect", "circle", "transform")
@@ -44,7 +61,6 @@ def show_predict_page():
         #st.image(canvas_result.image_data)
     #if canvas_result.json_data is not None:
         #st.dataframe(pd.json_normalize(canvas_result.json_data["objects"]))
-
     getGenre = st.button("Get the Genre!")
     getRating = st.button("Get the Rating!")
 
