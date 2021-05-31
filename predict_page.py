@@ -5,9 +5,6 @@ import numpy as np
 import pandas as pd
 import pickle
 
-#def load_model():
-
-#data=load_model()
 color_names = {
     '#000000': 'black',
     '#ffffff': 'white',
@@ -25,6 +22,11 @@ color_names = {
     '#ff00ff': 'magenta',
     '#800080': 'purple'
     }
+
+
+#def load_model():
+
+#data=load_model()
 
 def show_predict_page():
     st.title("Movie Rating Prediction")
@@ -56,6 +58,7 @@ def show_predict_page():
     drawing_mode=drawing_mode,
     key="canvas",
 )
+
     # Using the data
     #if canvas_result.image_data is not None:
         #st.image(canvas_result.image_data)
@@ -64,14 +67,20 @@ def show_predict_page():
     getGenre = st.button("Get the Genre!")
     getRating = st.button("Get the Rating!")
 
+
     if canvas_result.image_data is not None and getGenre:
-        #display genre
-        st.write(type(canvas_result.image_data))
+        #deleting fourth channel
+        canvas_result.image_data=changingDimensions(canvas_result.image_data)
+        st.write(canvas_result.image_data.shape)
         st.write(canvas_result.image_data)
+        #display genre
+
         genre=getGenrePrediction(canvas_result.image_data, overview)
         st.write("Prediction: "+genre)
+        #224*224*3
 
     if canvas_result.image_data is not None and getRating:
+        canvas_result.image_data=changingDimensions(canvas_result.image_data)
         rating= getRatingPrediction(canvas_result.image_data, overview)
         st.write("Rating: "+str(rating))
     #display genre
@@ -84,3 +93,15 @@ def getRatingPrediction(image, text):
     return 7
 #def processImageData(image):
     #Dividing the numbers by 255
+
+#method to delete fourth channel of the array
+#TODO: change dimensions to 224*224
+def changingDimensions(arr):
+    if arr is not None:
+        arr=arr[:,:,:3]
+    return arr
+    #img=Image.fromarray(arr)
+    #img=img.resize((224*224))
+    #image_sequence = an_image.getdata()
+    #image_array = np.array(image_sequence)
+    #return image_array
