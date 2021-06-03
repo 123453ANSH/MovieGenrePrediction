@@ -53,8 +53,8 @@ def show_predict_page():
     background_color="" if bg_image else bg_color,
     background_image=Image.open(bg_image) if bg_image else None,
     update_streamlit=realtime_update,
-    height=400,
-    width=600,
+    height=224,
+    width=224,
     drawing_mode=drawing_mode,
     key="canvas",
 )
